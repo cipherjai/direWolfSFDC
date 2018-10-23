@@ -1,0 +1,33 @@
+<aura:component >
+    <lightning:layout>
+        <lightning:card title="Camping Item">
+            <p class="slds-p-horzontal--small">
+                <aura:iteration items="{!v.items}" var="item">
+                    <c:campingListItem item = "{!item}"/>
+                </aura:iteration>
+            </p>
+        </lightning:card> 
+    </lightning:layout>   
+    <aura:attribute name="item" type="Camping_Item__c" required="true"/>
+    <h2>List Items</h2>
+    <h2><lightning:formattedNumber value="{!v.item.name}" style="text"/></h2>
+    
+    <p>Price:
+        <lightning:formattedNumber value="{!v.item.Price__c}" style="currency"/>
+    </p>
+    <p>
+        Quantity: 
+        <lightning:formattedNumber value="{!v.item.Quantity__c}" style="number"/>
+    </p>
+    <p>Packed ?
+        <lightning:input type="toggle"                            
+                         label="Packed?"                           
+                         name="Packed"                         
+                         checked="{!v.item.Packed__c}" />
+    </p> 
+    
+    <div>
+        <lightning:button label="Packed!"
+                          onclick="{!c.packItem}"/>
+    </div>
+</aura:component>

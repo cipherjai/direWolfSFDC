@@ -1,0 +1,19 @@
+<apex:page standardController="Account" tabStyle="Account" sidebar="false" showHeader="false">
+    <apex:pageBlock title="Accounts">
+        <apex:pageMessages />
+        <apex:pageBlockSection columns="2">
+            <h1>Edit Account</h1>
+            <apex:form >
+                Name : <apex:inputField value="{! Account.Name }"/><br/>
+                <br/>
+                Type : <apex:inputField value="{! Account.Type }"/><br/>
+                <br/>
+                Industry : <apex:inputField value="{! Account.Industry }"/><br/>
+                <br/>
+                Annual Revenue : <apex:inputField value="{! Account.AnnualRevenue }"/><br/>
+                <br/>
+                <apex:commandButton action="{! save}" value="Save" /> <br/>
+            </apex:form>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

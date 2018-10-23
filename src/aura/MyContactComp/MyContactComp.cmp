@@ -1,0 +1,47 @@
+<aura:component implements="force:lightningQuickAction,flexipage:availableForRecordHome,force:hasRecordId" controller="MyContactsController" access="global">
+    <!-- force HasREcord id here takes the record id manually -->
+    
+    <aura:handler name="init" action="{! c.getContactList}" value="{! this}" />
+    <!-- when my lightning component is loaded, this aura init handler is called and inturn it calls the lightning controller function
+    whose name is getContactList() -->
+    
+    <!-- aura attribute - - for p[lacing in the values fetched from helper->controller->component -->
+    <!-- Going to hit the apex Controller, -->
+    <aura:attribute name="contactList" type="List" default="[]"/>
+    
+    <!-- -->
+    <lightning:card title="Contacts">       
+            <p class="slds-p-horizontal_small">
+                <div aura:id="recordViewForm" class="formHide">
+                    
+                    <!-- apex:repeat -->
+                    <aura:iteration items="{!v.contactList}" var="contact">                        
+                        <lightning:recordViewForm recordId="{!contact.Id}" objectApiName="Contact">
+                            <div class="slds-box slds-theme_default">
+                                <lightning:outputField fieldName="FirstName" />
+                                <lightning:outputField fieldName="LastName" />
+                                <lightning:outputField fieldName="Email" />
+                                <lightning:outputField fieldName="Phone" />
+                            </div>
+                        </lightning:recordViewForm>
+                        <br/>                   
+                    </aura:iteration>
+                    </div>
+                    <div aura:id="recordEdit Form">
+                    <aura:iteration items="{!v.contactList}" var="contact">                        
+                        <div class="slds-box slds-theme_default">
+                            <lightning:input value="{!contact.FirstName}" />
+                            <lightning:input value="{!contact.LastName}" />
+                            <lightning:input type="email" value="{!contact.Email}" />
+                            <lightning:input type="tel" value="{!contact.Phone}" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}"/>
+                        </div>
+                    </aura:iteration>
+                </div>
+            </p>
+       
+        <aura:set attribute="actions">
+            <lightning:button label="New" onClick="{!c.newContact}"/>
+            <lightning:button onClick="{!c.editContacts}" name="edit" variant="brand" label="Edit"/>
+        </aura:set>
+    </lightning:card>
+</aura:component>

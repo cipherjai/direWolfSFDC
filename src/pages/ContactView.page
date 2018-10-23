@@ -1,0 +1,14 @@
+<apex:page showHeader="false" sidebar="false" standardController="Contact" extensions="ContactController">
+    <apex:form >
+        <apex:pageBlock title="Contacts">
+            <apex:pageBlockSection columns="2" >
+                First Name {! Contact.firstName }<br/>
+                Last Name {! Contact.LastName }<br/>
+                Owner Email {! Contact.Owner.email }<br/>
+            </apex:pageBlockSection> 
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!traverseToEditPAge}" value="Go To Page"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

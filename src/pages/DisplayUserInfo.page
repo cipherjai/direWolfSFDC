@@ -1,0 +1,7 @@
+<apex:page sidebar="false" showHeader="false">
+    <apex:pageBlock title="greeter">
+        <h1>
+            {! $User.firstName }
+        </h1>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,15 @@
+<apex:page standardController="Contact" tabStyle="contact" showHeader="false" sidebar="false">
+    <apex:pageBlock title="Edit Contact">
+        <apex:pageMessages />
+        <apex:pageBlockSection columns="2" >
+            <h1>Edit Contact</h1>
+            <apex:form >
+                First Name : <apex:inputField value="{! Contact.firstName }"/><br/>
+                <br/>
+                Last Name : <apex:inputField value="{! Contact.lastName }"/><br/>
+                <br/>
+                <apex:commandButton action="{! save}" value="Save" /> <br/>
+            </apex:form>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,11 @@
+<aura:component implements="force:hasRecordId,flexipage:availableForRecordHome" controller="ContactViewController">
+    <aura:attribute name="cnt" type="Contact" />
+    
+    <!-- when a user comes to this component , it automatically fires this handler -->
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card iconName="standard:contact" title="Contact Name">
+        <c:helloMessage message = "{!v.cnt.Name}"/>
+    </lightning:card>
+</aura:component>

@@ -1,0 +1,12 @@
+{
+    "SFDX_Autoheader.username": "codeme.jai@gmail.com",
+    "terminal.integrated.env.osx": {
+        "SFDX_SET_CLIENT_IDS": "sfdx-vscode"
+    },
+    "terminal.integrated.env.linux": {
+        "SFDX_SET_CLIENT_IDS": "sfdx-vscode"
+    },
+    "terminal.integrated.env.windows": {
+        "SFDX_SET_CLIENT_IDS": "sfdx-vscode"
+    }
+}

@@ -1,0 +1,1155 @@
+<aura:component implements="force:hasRecordId,flexipage:availableForRecordHome" controller="VinHistoryLightning">
+    <!-- Attributes -->
+    <aura:attribute name="recordId" type="String" description="Record Id of Knowledge Document" default="a000R000001mrxK" />
+
+    <aura:attribute name="mainWrapperData" type="List" default="[]" />
+
+    <aura:attribute name="data" type="Object" />
+    <aura:attribute name="columns" type="List" />
+
+
+    <aura:attribute name="lrCollCaseCheck" type="List" />
+    <aura:attribute name="navComment" type="List" />
+    <aura:attribute name="wodc" type="List" />
+    <aura:attribute name="wooem" type="List" />
+    <aura:attribute name="wovcb" type="List" />
+    <aura:attribute name="woccb" type="List" />
+    <aura:attribute name="Navclaim" type="List" />
+    <aura:attribute name="lstnotes" type="List" />
+    <aura:attribute name="lr_Vin" type="List" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!-- Out of the Card header __ Heading  -->
+    <div class="slds-page-header">
+        <div class="slds-page-header__name">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__name-title">
+                    <h2>
+                        <span class="slds-page-header__title slds-truncate" title="Vin Case Name">Vin {!v.vinCaseName}</span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button for Close -->
+        <div class="slds-no-flex">
+            <button class="slds-button slds-button_neutral">Close</button>
+        </div>
+
+        <!-- Card Inside the main page for case History -->
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <!-- heading -->
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>Case History</span>
+                        </h2>
+                    </div>
+                    <!-- end of heading -->
+                </header>
+            </div>
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title">
+                    <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
+                        <span class="slds-truncate" title="Section Title">Cases</span>
+                    </button>
+                </h3>
+                <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+                    <div style="padding: auto;">
+                        <aura:if isTrue="{!v.lrCollCaseCheck.size >0}">
+                            <table class="slds-table slds-table--bordered">
+                                <thead>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Case">
+                                            Case
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Subject">
+                                            Subject
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Created Date">
+                                            Created Date
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Created By">
+                                            Created by
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Item Status">
+                                            Item Status
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Main Category">
+                                            Main Category
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Sub Category">
+                                            Sub Category
+                                        </div>
+                                    </th>
+                                    <th class="slds-text-title_caps" scope="col">
+                                        <div class="slds-truncate" title="Comments">
+                                            Comments
+                                        </div>
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.lrCollCaseCheck}" var="item">
+                                        <tr>
+                                            <td data-label="Case Name">
+                                                <div class="slds-truncate" title="{!item.lr_case.id}">
+                                                    <a href="{!'/one/one.app?#/sObject/'+ item.lr_case.id + '/view'}" target="_parent">{!item.lr_case.casenumber}</a>
+                                                </div>
+                                            </td>
+
+                                            <td data-label="Subject">
+                                                <div class="slds-truncate" title="{!item.lr_case.Subject}">
+                                                    {!item.lr_case.Subject}
+                                                </div>
+                                            </td>
+
+                                            <td data-label="Created Date">
+                                                <div class="slds-truncate" title="{!item.lr_case.CreatedDate}">
+                                                    {!item.lr_case.CreatedDate}
+                                                </div>
+                                            </td>
+
+                                            <td data-label="Created By">
+                                                <div class="slds-truncate" title="{!item.lr_case.CreatedBy.Name}">
+                                                    {!item.lr_case.CreatedBy.Name}
+                                                </div>
+                                            </td>
+
+                                            <td data-label="Item Status">
+                                                <div class="slds-truncate" title="{!item.lr_case.status}">
+                                                    {!item.lr_case.status}
+                                                </div>
+                                            </td>
+
+                                            <td data-label="Main Category">
+                                                <div class="slds-truncate" title="{!item.lr_case.Main_Category_Description_Lookup__r.Value__c}">
+                                                    {!item.lr_case.Main_Category_Description_Lookup__r.Value__c}
+                                                </div>
+                                            </td>
+
+                                            <td data-label="Sub Category">
+                                                <div class="slds-truncate" title="{!item.lr_case.Sub_Category_Description_Lookup__r.Value__c}">
+                                                    {!item.lr_case.Sub_Category_Description_Lookup__r.Value__c}
+                                                </div>
+                                            </td>
+
+                                            <td data-label="Comments">
+                                                <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                    <aura:if isTrue="">
+                                                        <!-- if cooments are not null -->
+                                                        <table class="slds-table slds-table--bordered">
+                                                            <thead>
+                                                                <th class="slds-text-title_caps" scope="col">
+                                                                    <div class="slds-truncate" title="Username">
+                                                                        Username
+                                                                    </div>
+                                                                </th>
+
+                                                                <th class="slds-text-title_caps" scope="col">
+                                                                    <div class="slds-truncate" title="Comment">
+                                                                        Comment
+                                                                    </div>
+                                                                </th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <aura:iteration items="{!v.item.lr_case.CaseComments}" var="commentItem">
+                                                                    <td data-label="username">
+                                                                        <div class="slds-truncate" title="{!commentItem.CreatedBy.UserName}">
+                                                                            {!commentItem.CreatedBy.UserName}
+                                                                        </div>
+                                                                    </td>
+                                                                    <td data-label="comment">
+                                                                        <div class="slds-truncate" title="{!commentItem.Commentbody}">
+                                                                            {!item.lr_case.Commentbody}
+                                                                        </div>
+                                                                    </td>
+                                                                </aura:iteration>
+                                                            </tbody>
+                                                        </table>
+                                                    </aura:if>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </aura:if>
+                        <br/>
+                        <br/>
+                        <!-- Table Case History Section -->
+                        <table class="slds-table slds-table--bordered">
+                            <thead>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Created Date">
+                                        Created Date
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Created By">
+                                        Created By
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Comment">
+                                        Comment
+                                    </div>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="" var="commentItem">
+                                    <tr class="slds-text-heading--label">
+                                        <td data-label="created-date">
+                                            <div class="slds-truncate" title="{!commentItem.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+
+                                        <td data-label="created-by">
+                                            <div class="slds-truncate" title="{!commentItem.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+
+                                        <td data-label="comment">
+                                            <div class="slds-truncate" title="{!commentItem.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <br/>
+
+        <!-- Dealer OEM Claim -->
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <!-- heading -->
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>Dealer OEM Claims</span>
+                        </h2>
+                    </div>
+                    <!-- end of heading -->
+                </header>
+            </div>
+            <div class="slds-section slds-is-open">
+                <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+                    <div style="padding: auto;">
+                        <table class="slds-table slds-table--bordered">
+                            <thead>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Claim Item">
+                                        Claim Item
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Claim">
+                                        Claim
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Case">
+                                        Case
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Main Category">
+                                        Main Category
+                                    </div>
+                                </th>
+
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Sub Category">
+                                        Sub Category
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Created Date">
+                                        Created Date
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Item Status">
+                                        Item Status
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Posted Doc No">
+                                        Posted Doc No
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Posted Doc Date">
+                                        Posted Doc Date
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Check Number">
+                                        Check Number
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Payment Date">
+                                        Payment Date
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Created By">
+                                        Created By
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Repair no">
+                                        Repair no
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="LCI Due $">
+                                        LCI Due $
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Payee no">
+                                        Payee no
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Payee Name">
+                                        Payee Name
+                                    </div>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.wodc}" var="wodcItem">
+                                    <tr class="slds-text-heading--label">
+                                        <td data-label="claim-item">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.Claim__r.Name}">
+                                                {!wodcItem.citem.Claim__r.Name}
+                                            </div>
+                                        </td>
+                                        <td data-label="claim">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="case">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.Claim__r.CaseNumber}">
+                                                {!wodcItem.citem.Claim__r.CaseNumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="maincategory">
+                                            <div class="slds-truncate" title="{! wodcItem.citem.Main_Category_Description_Lookup__r.Value__c}">
+                                                {! wodcItem.citem.Main_Category_Description_Lookup__r.Value__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="subcategory">
+                                            <div class="slds-truncate" title="{! wodcItem.citem.Sub_Category_Description_Lookup__r.Value__c}">
+                                                {! wodcItem.citem.Sub_Category_Description_Lookup__r.Value__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="created-date">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.CreatedDate}">
+                                                <span type="Date">{!wodcItem.citem.CreatedDate}</span>
+                                            </div>
+                                        </td>
+                                        <td data-label="item Status">
+                                            <div class="slds-truncate" title="{wodcItem.citem.Status__c}">
+                                                {!wodcItem.citem.Status__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="posted-doc-no">
+                                          <div class="slds-truncate" title="{!wodcItem.citem.Posted_Document_No__c}">
+                                              {!wodcItem.citem.Posted_Document_No__c}
+                                          </div>
+                                        </td>
+                                        <td data-label="posted-doc-date">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.Posted_Document_Posting_Date__c}">
+                                                {!wodcItem.citem.Posted_Document_Posting_Date__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="check-number">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.Check_Number__c}">
+                                                {!wodcItem.citem.Check_Number__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="payment-date">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.Payment_Date__c}">
+                                                {!wodcItem.citem.Payment_Date__c}
+                                            </div>
+                                        </td>
+                                        <!-- TODO:: -->
+                                        <td data-label="created-by">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.CreatedBy}">
+                                              <a href="{!'/one/one.app?#/sObject/'+ wodcItem.citem.CreatedBy + '/view'}"  target="_blank">{!wodcItem.citem.CreatedBy.Name}</a>
+                                            </div>
+                                        </td>
+                                        <td data-label="repair-no">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.Repair_Work_Order_No__c}">
+                                                {!wodcItem.citem.Repair_Work_Order_No__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="LCI-due-$">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.LCI_Due_OEM_Claim_Line__c}">
+                                                {!wodcItem.citem.LCI_Due_OEM_Claim_Line__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="payee-no">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.Vendor__r.AX_Account_Number__c}">
+                                                {!wodcItem.citem.Vendor__r.AX_Account_Number__c}
+                                            </div>
+                                        </td>
+                                        <td data-label="payee-name">
+                                            <div class="slds-truncate" title="{!wodcItem.citem.Vendor__r.Name}">
+                                                {!wodcItem.citem.Vendor__r.Name}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <br/>
+        <!-- OEM Claim Lines -->
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <!-- heading -->
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>OEM Claims Lines</span>
+                        </h2>
+                    </div>
+                    <!-- end of heading -->
+                </header>
+            </div>
+            <br/>
+            <div class="slds-section slds-is-open">
+                <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+                    <div style="padding: auto;">
+                        <table class="slds-table slds-table--bordered">
+                            <thead>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Claim Item">
+                                        Claim Item
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Claim">
+                                        Claim
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Maincategory">
+                                        Maincategory
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Subcategory">
+                                        Subcategory
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Item Status">
+                                        Item Status
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Posted Doc No">
+                                        Posted Doc No
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Posted Doc Date">
+                                        Posted Doc Date
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Created By">
+                                        Created By
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Related General issue">
+                                        Related General issue
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="LCI Due $">
+                                        LCI Due $
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Account no">
+                                        Account no
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Account Name">
+                                        Account Name
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Customer VCB No.">
+                                        Customer VCB No
+                                    </div>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="" var="">
+                                    <tr class="slds-text-heading--label">
+                                        <td data-label="claim-item">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="claim">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="maincategory">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="subcategory">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="created-date">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="item-status">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="posted-doc-no">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="posted-doc-date">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="created-by">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="related-general-issue">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="lci-due">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="account-no">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="account-name">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="customer-vcb-no">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <br/>
+
+        <!-- Vendor Charge Back Claim Lines -->
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <!-- heading -->
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>Vendor Charge Back Claim Lines</span>
+                        </h2>
+                    </div>
+                    <!-- end of heading -->
+                </header>
+            </div>
+            <br/>
+            <div class="slds-section slds-is-open">
+                <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+                    <div style="padding: auto;">
+                        <table class="slds-table slds-table--bordered">
+                            <thead>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Claim Item">
+                                        Claim Item
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Claim">
+                                        Claim
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Maincategory">
+                                        Maincategory
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Subcategory">
+                                        Subcategory
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Item Status">
+                                        Item Status
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Posted Doc No">
+                                        Posted Doc No
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Posted Doc Date">
+                                        Posted Doc Date
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Created By">
+                                        Created By
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Related General issue">
+                                        Related General issue
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="LCI Due $">
+                                        LCI Due $
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Account no">
+                                        Account no
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Account Name">
+                                        Account Name
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Customer VCB No.">
+                                        Customer VCB No
+                                    </div>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="" var="">
+                                    <tr class="slds-text-heading--label">
+                                        <td data-label="claim-item">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="claim">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="maincategory">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="subcategory">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="created-date">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="item-status">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="posted-doc-no">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="posted-doc-date">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="created-by">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="related-general-issue">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="lci-due">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="account-no">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="account-name">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="customer-vcb-no">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <br/>
+
+        <!-- Customer Bill Back Claim Lines -->
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <!-- heading -->
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>Customer Bill Back Claim Lines</span>
+                        </h2>
+                    </div>
+                    <!-- end of heading -->
+                </header>
+            </div>
+            <br/>
+            <div class="slds-section slds-is-open">
+                <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+                    <div style="padding: auto;">
+                        <table class="slds-table slds-table--bordered">
+                            <thead>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Claim Item">
+                                        Claim Item
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Claim">
+                                        Claim
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Maincategory">
+                                        Maincategory
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Subcategory">
+                                        Subcategory
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Item Status">
+                                        Item Status
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Posted Doc No">
+                                        Posted Doc No
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Posted Doc Date">
+                                        Posted Doc Date
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Created By">
+                                        Created By
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Related General issue">
+                                        Related General issue
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="LCI Due $">
+                                        LCI Due $
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Account no">
+                                        Account no
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Account Name">
+                                        Account Name
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Customer VCB No.">
+                                        Customer VCB No
+                                    </div>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="" var="">
+                                    <tr class="slds-text-heading--label">
+                                        <td data-label="claim-item">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="claim">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="maincategory">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="subcategory">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="created-date">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="item-status">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="posted-doc-no">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="posted-doc-date">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="created-by">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="related-general-issue">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="lci-due">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="account-no">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="account-name">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="customer-vcb-no">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Legacy Claims -->
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <!-- heading -->
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>Legacy Claims</span>
+                        </h2>
+                    </div>
+                    <!-- end of heading -->
+                </header>
+            </div>
+            <br/>
+            <div class="slds-section slds-is-open">
+                <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+                    <div style="padding: auto;">
+                        <table class="slds-table slds-table--bordered">
+                            <thead>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Claim Item">
+                                        Claim
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Claim">
+                                        Created Date
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Maincategory">
+                                        Main Category
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Subcategory">
+                                        Sub Category
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Item Status">
+                                        Created By
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Posted Doc No">
+                                        VCB No.
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Posted Doc Date">
+                                        Item Status
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Created By">
+                                        Account Name
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Related General issue">
+                                        LCI due $
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="LCI Due $">
+                                        Case
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Account no">
+                                        Posted Doc No.
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Account Name">
+                                        Posted Doc Date
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Customer VCB No.">
+                                        Payment Date
+                                    </div>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="" var="">
+                                    <tr class="slds-text-heading--label">
+
+
+                                        <td data-label="claim">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="created-date">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="maincategory">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="subcategory">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="created-by">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="vcb-no">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="item-status">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="account-name">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="lci-due">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="case">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="posted-doc-no">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="posted-doc-date">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="payment-date">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Notes -->
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <!-- heading -->
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>Notes</span>
+                        </h2>
+                    </div>
+                    <!-- end of heading -->
+                </header>
+            </div>
+            <br/>
+            <div class="slds-section slds-is-open">
+                <div aria-hidden="false" class="slds-section__content" id="expando-unique-id">
+                    <div style="padding: auto;">
+                        <table class="slds-table slds-table--bordered">
+                            <thead>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Title">
+                                        Title
+                                    </div>
+                                </th>
+                                <th class="slds-text-title_caps" scope="col">
+                                    <div class="slds-truncate" title="Body">
+                                        Body
+                                    </div>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="" var="">
+                                    <tr class="slds-text-heading--label">
+                                        <td data-label="title">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                        <td data-label="body">
+                                            <div class="slds-truncate" title="{!item.lr_case.casenumber}">
+                                                {!item.lr_case.casenumber}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</aura:component>

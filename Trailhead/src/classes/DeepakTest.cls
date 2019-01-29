@@ -4,7 +4,7 @@
  * @Author             : codeme.jai@gmail.com
  * @Group              : 
  * @Last Modified By   : codeme.jai@gmail.com
- * @Last Modified On   : 1/28/2019, 11:36:12 AM
+ * @Last Modified On   : 1/28/2019, 1:23:35 PM
  * @Modification Log   : 
  *==============================================================================
  * Ver         Date                     Author      		      Modification
@@ -115,6 +115,6 @@ public with sharing class DeepakTest {
         // Emptying the recycle Bin 
         // SOQL
 
-        
+          
     }
 }

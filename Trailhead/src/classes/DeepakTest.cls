@@ -4,7 +4,7 @@
  * @Author             : codeme.jai@gmail.com
  * @Group              : 
  * @Last Modified By   : codeme.jai@gmail.com
- * @Last Modified On   : 1/28/2019, 1:23:35 PM
+ * @Last Modified On   : 1/31/2019, 11:02:48 AM
  * @Modification Log   : 
  *==============================================================================
  * Ver         Date                     Author      		      Modification
@@ -108,13 +108,38 @@ public with sharing class DeepakTest {
         Database.undelete() -- >
         Database.merge() -- >
         */
-
+                                
         // Another set of methods for operations
         // Rollback 
         // Transaction COntrol 
         // Emptying the recycle Bin 
         // SOQL
 
-          
+        // Inserting with partial success 
+        List<Contact> conList = new List<Contact>{
+            new Contact(FirstName='Joe',LastName='Smith',Department='Finance'),
+            new Contact(FirstName='Kathy',LastName='Smith',Department='Technology'),
+            new Contact(FirstName='Caroline',LastName='Roth',Department='Finance'),
+            new Contact()
+        };
+
+        Database.SaveResult[] srList =  Database.insert(conList, false);
+        // Iterate through each returned result 
+
+        for(Database.SaveResult sr : srList){
+            if(sr.isSuccess()){
+                // Operations if successful
+                System.debug('Successfully inserted record with id = ' + sr.getId());
+            }
+            else {
+               for(Database.Error err :  sr.getErrors()){
+                   System.debug('The following error has occured!');
+                   System.debug(err.getStatusCode()+ ':' + err.getMessage());
+                   System.debug('Contacts fields with errors ' + err.getFields());                   
+               }
+            }
+        }
+        
+         
     }
 }

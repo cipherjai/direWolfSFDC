@@ -4,7 +4,7 @@
  * @Author             : codeme.jai@gmail.com
  * @Group              : 
  * @Last Modified By   : codeme.jai@gmail.com
- * @Last Modified On   : 1/31/2019, 11:02:48 AM
+ * @Last Modified On   : 2/1/2019, 11:52:21 AM
  * @Modification Log   : 
  *==============================================================================
  * Ver         Date                     Author      		      Modification
@@ -116,14 +116,14 @@ public with sharing class DeepakTest {
         // SOQL
 
         // Inserting with partial success 
-        List<Contact> conList = new List<Contact>{
+        List<Contact> conLists = new List<Contact>{
             new Contact(FirstName='Joe',LastName='Smith',Department='Finance'),
             new Contact(FirstName='Kathy',LastName='Smith',Department='Technology'),
             new Contact(FirstName='Caroline',LastName='Roth',Department='Finance'),
             new Contact()
         };
 
-        Database.SaveResult[] srList =  Database.insert(conList, false);
+        Database.SaveResult[] srList =  Database.insert(conLists, false);
         // Iterate through each returned result 
 
         for(Database.SaveResult sr : srList){
@@ -140,6 +140,39 @@ public with sharing class DeepakTest {
             }
         }
         
-         
+        
+        // Related Records 
+        Account acct = new Account(Name='SFDC Account');
+        insert acct;
+        // Once the account is inserted, the sObject will be 
+        // populated with an ID.
+        // Get this ID.
+        ID acctID = acct.ID;
+        // Add a contact to this account.
+        Contact mario = new Contact(
+            FirstName='Mario',
+            LastName='Ruiz',
+            Phone='415.555.1212',
+            AccountId=acctID);
+        insert mario;
+
+        // Query for the contact, which has been associated with an account.
+        Contact queriedContact = [SELECT Account.Name 
+                                FROM Contact 
+                                WHERE FirstName = 'Mario' AND LastName='Ruiz'
+                                LIMIT 1];
+        // Update the contact's phone number
+        queriedContact.Phone = '(415)555-1213';
+        // Update the related account industry
+        queriedContact.Account.Industry = 'Technology';
+        // Make two separate calls 
+        // 1. This call is to update the contact's phone.
+        update queriedContact;
+        // 2. This call is to update the related account's Industry field.
+        update queriedContact.Account; 
+
+        Account[] queriedAccounts = [SELECT Id FROM Account WHERE Name='SFDC Account'];
+        delete queriedAccounts;
+                 
     }
 }

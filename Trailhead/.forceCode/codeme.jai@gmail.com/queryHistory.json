@@ -1,5 +1,6 @@
 {
     "queries": [
+        "SELECT Name, (SELECT LastName FROM Contacts) FROM Account WHERE Industry='Education'\n",
         "SELECT Name,Phone FROM Account"
     ]
 }

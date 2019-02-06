@@ -4,21 +4,26 @@
  * @Author             : codeme.jai@gmail.com
  * @Group              : 
  * @Last Modified By   : codeme.jai@gmail.com
- * @Last Modified On   : 1/31/2019, 6:05:21 PM
+ * @Last Modified On   : 2/6/2019, 5:33:53 PM
  * @Modification Log   : 
  *==============================================================================
  * Ver         Date                     Author      		      Modification
  *==============================================================================
- * 1.0    1/31/2019, 6:03:20 PM   codeme.jai@gmail.com     Initial Version
+ * 1.0    2/6/2019, 4:24:46 PM   codeme.jai@gmail.com     Initial Version
 **/
 public with sharing class AccountHandler {
-    public static Account insertNewAccount(String nameOfAccount){
-        Account accountOne = new Account(Name=nameOfAccount);
-        try {
-           insert accountOne;
-           return accountOne;
-        } catch (DMLException dmlException) {
-           return null;
+    public static void CreateNewOpportunity(List<Account> accts){
+        List<Opportunity> opp = new List<Opportunity>();
+        for (Account a : accts) {
+           Opportunity newOpp = new Opportunity();
+           newOpp.Name = a.Name + ' Opportunity';
+           newOpp.AccountId = a.Id;
+           newOpp.StageName = 'Prospecting';
+           newOpp.CloseDate = System.Today().addMonths(1);
+           opp.add(newOpp);           
         }
+        if(opp.size() > 0){
+            insert opp;
+        }        
     }
 }

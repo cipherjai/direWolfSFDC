@@ -4,7 +4,7 @@
  * @Author             : codeme.jai@gmail.com
  * @Group              : 
  * @Last Modified By   : codeme.jai@gmail.com
- * @Last Modified On   : 2/6/2019, 5:27:52 PM
+ * @Last Modified On   : 2/7/2019, 12:16:15 AM
  * @Modification Log   : 
  *==============================================================================
  * Ver         Date                     Author      		      Modification
@@ -19,6 +19,15 @@ trigger AccountTrigger on Account (before insert, before update, before delete, 
         } catch (Exception ex) {
            System.debug('Exception - >' + ex.getMessage());
         }
+    }
+
+    if(Trigger.isBefore && Trigger.isInsert){
+        try {
+            System.debug('Inside before Trigger -- Inserting Account');
+            AccountTriggerHandler.CreateAccounts(Trigger.New);
+        } catch (Exception ex) {
+           System.debug('Exception - > ' + ex.getMessage());
+        }        
     }
 }
 

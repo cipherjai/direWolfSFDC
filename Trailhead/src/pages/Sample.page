@@ -1,0 +1,29 @@
+<!--
+  @Page Name          : Sample.page
+  @Description        : 
+  @Author             : codeme.jai@gmail.com
+  @Group              : 
+  @Last Modified By   : codeme.jai@gmail.com
+  @Last Modified On   : 2/6/2019, 2:39:00 PM
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    2/6/2019, 2:39:00 PM   codeme.jai@gmail.com     Initial Version
+-->
+<apex:page standardController="Contact">
+    <apex:form>
+        <apex:pageBlock title="Edit Contact" mode="Edit">
+            <apex:pageBlockButtons>
+                <apex:commandButton action="{!edit}" id="editButton" value="Edit" />
+                <apex:commandButton action="{!save}" id="saveButton" value="Save" />
+                <apex:commandButton action="{!cancel}" id="cancelButton" value="Cancel" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection>
+                <apex:inputField value="{!contact.lastname}" />
+                <apex:inputField value="{!contact.accountId}" />
+                <apex:inputField value="{!contact.phone}" />
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

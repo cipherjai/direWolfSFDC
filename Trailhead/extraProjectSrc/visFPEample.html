@@ -1,0 +1,25 @@
+<div>
+    <apex:actionregion>
+        <apex:pageBlockSection>
+            <apex:inputField value="{! leadObj.External_Association__c}" styleClass="slds-input">
+                <apex:actionSupport event="onchange" rerender="externalinfo" />
+            </apex:inputField>
+        </apex:pageBlockSection>
+    </apex:actionregion>
+    <apex:pageBlockSection id="externalinfo" rendered="true" columns="2">
+        <apex:inputField id="externalinfof" value="{! leadObj.External_Association_Information__c}" rendered="{!IF( leadObj.External_Association__c=='Yes',true,false)}" />
+    </apex:pageBlockSection>
+
+    <apex:actionregion>
+        <apex:pageBlockSection>
+
+            <apex:inputField value="{! leadObj.Past_project_with_BPCL__c}" styleClass="slds-input">
+                <apex:actionSupport event="onchange" rerender="externalinfo1" />
+            </apex:inputField>
+
+        </apex:pageBlockSection>
+    </apex:actionregion>
+    <apex:pageBlockSection id="externalinfo1" rendered="true">
+        <apex:inputField id="externalinfof1" value="{! leadObj.Project_Description__c}" rendered="{!IF( leadObj.Past_project_with_BPCL__c=='Yes',true,false)}" />
+    </apex:pageBlockSection>
+</div>

@@ -1,0 +1,94 @@
+<!--
+  @Page Name          : bpclPage.page
+  @Description        : 
+  @Author             : codeme.jai@gmail.com
+  @Group              : 
+  @Last Modified By   : codeme.jai@gmail.com
+  @Last Modified On   : 2/7/2019, 4:04:55 PM
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    2/7/2019, 4:04:40 PM   codeme.jai@gmail.com     Initial Version
+-->
+<apex:page controller="" showHeader="false" sidebar="false">
+    <h1>Proposal Submission Form</h1>
+    <apex:form>
+        <apex:pageBlock>
+            <apex:pageBlockSection columns="2" title="Organization Details">
+                <apex:inputField value="{! leadObj.Company }" />
+                <apex:inputField value="{! leadObj.FirstName }" />
+                <apex:inputField value="{! leadObj.LastName }" />
+                <apex:inputField value="{! leadObj.Phone }" />
+                <apex:inputField value="{! leadObj.Email }" />
+                <!--<apex:inputField value="{! leadObj.Address }"/>-->
+                <apex:inputField value="{! leadObj.Partner_Type__c }" />
+                <apex:inputField value="{! leadObj.Expertise_Area__c }" />
+                <apex:inputField value="{! leadObj.Funding_Source__c }" />
+                <apex:inputField value="{! leadObj.AnnualRevenue }" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" title="Project Details">
+                <apex:inputField value="{! leadObj.Project__c }" />
+                <apex:inputField value="{! leadObj.Project_Description__c }" />
+                <apex:inputField value="{! leadObj.Project_Theme__c }" />
+                <apex:inputField value="{! leadObj.Tenure_of_Project__c }" />
+                <apex:inputField value="{! leadObj.Beneficiaries_of_the_Project__c }" />
+                <apex:inputField value="{! leadObj.Total_cost_of_the_Project__c }" />
+                <apex:inputField value="{! leadObj.Funds_Requested_from_BPCL__c }" />
+                <apex:inputField value="{! leadObj.Funds_Requested_from_Any_other_source__c }" />
+                <apex:inputField value="{! leadObj.Benefits_Outcome_expected_from_project__c }" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Attachments">
+                <apex:inputFile value="{!atchmnt1.body}" filename="{!atchmnt1.name}" />
+                <apex:inputFile value="{!atchmnt2.body}" filename="{!atchmnt2.name}" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Geographies">
+                <apex:pageBlockSectionItem>
+                    <apex:outputLabel>State</apex:outputLabel>
+                    <apex:selectList value="{!SelectedState}" size="1" multiselect="false">
+                        <apex:selectOptions value="{!StateList}">
+                        </apex:selectOptions>
+                        <apex:actionSupport action="{!findDistrictList}" event="onchange" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem>
+                    <apex:outputLabel>District</apex:outputLabel>
+                    <apex:selectList value="{!SelectedDistrict}" size="1" multiselect="false">
+                        <apex:selectOptions value="{!DistrictList}">
+                        </apex:selectOptions>
+                        <apex:actionSupport action="{!findSubDistrictList}" event="onchange" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem>
+                    <apex:outputLabel>Sub District</apex:outputLabel>
+                    <apex:selectList value="{!SelectedSubDistrict}" size="1" multiselect="false">
+                        <apex:selectOptions value="{!SubDistrictList}">
+                        </apex:selectOptions>
+                        <apex:actionSupport action="{!findBlockList}" event="onchange" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem>
+                    <apex:outputLabel>Block</apex:outputLabel>
+                    <apex:selectList value="{!SelectedBlock}" size="1" multiselect="false">
+                        <apex:selectOptions value="{!blockList}">
+                        </apex:selectOptions>
+                        <apex:actionSupport action="{!findVillageList}" event="onchange" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem>
+                    <apex:outputLabel>Village</apex:outputLabel>
+                    <apex:selectList value="{!SelectedVillage}" size="1" multiselect="false">
+                        <apex:selectOptions value="{!VillageList}">
+                        </apex:selectOptions>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:commandButton action="{! save }" value="Save" />
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

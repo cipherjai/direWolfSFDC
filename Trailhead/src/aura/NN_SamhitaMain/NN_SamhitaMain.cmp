@@ -1,0 +1,24 @@
+<!--
+  @Component Name     : NN_SamhitaMain.cmp
+  @Description        : 
+  @Author             : codeme.jai@gmail.com
+  @Group              : 
+  @Last Modified By   : codeme.jai@gmail.com
+  @Last Modified On   : 2/15/2019, 12:39:32 PM
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    2/15/2019, 12:24:28 PM   codeme.jai@gmail.com     Initial Version
+-->
+<aura:component implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:lightningQuickAction" access="global" description="This is the main component for containg dashboard, daa and outcome">
+
+    <!-- Attribute Declaration for Processing -->
+    <aura:attribute name="recordId" type="String" description="Record Id of User" />
+
+
+    <!-- Outline for the structure of page -->
+    <div class="navbar_custom">
+
+    </div>
+</aura:component>

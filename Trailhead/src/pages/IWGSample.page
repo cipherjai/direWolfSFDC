@@ -1,0 +1,23 @@
+<!--
+  @Page Name          : IWGSample.page
+  @Description        : 
+  @Author             : codeme.jai@gmail.com
+  @Group              : 
+  @Last Modified By   : codeme.jai@gmail.com
+  @Last Modified On   : 14/3/2019, 4:11:36 PM
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    14/3/2019, 3:24:51 PM   codeme.jai@gmail.com     Initial Version
+-->
+<apex:page showHeader="False" controller="IWGActions" sidebar="false" standardStylesheets="false" applyBodyTag="false" docType="html-5.0">
+    <!-- Remote Objects -->
+    
+    <apex:remoteObjectModel name="Invoice__c" jsShorthand="Invoice" fields="Name, Balance__c, Bill_Email__c, Customer_Id__c, TotalTax__c"></apex:remoteObjectModel>
+
+    <!-- Body -->
+    <head>
+        
+    </head>
+</apex:page>

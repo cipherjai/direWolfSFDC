@@ -1,0 +1,44 @@
+<!--
+  @Page Name          : ShowInvoice.page
+  @Description        : 
+  @Author             : codeme.jai@gmail.com
+  @Group              : 
+  @Last Modified By   : codeme.jai@gmail.com
+  @Last Modified On   : 14/3/2019, 1:35:16 PM
+  @Modification Log   : 
+  ==============================================================================
+  Ver         Date                     Author      		      Modification
+  ==============================================================================
+  1.0    14/3/2019, 12:58:33 PM   codeme.jai@gmail.com     Initial Version
+-->
+<apex:page controller="InvoiceJs">
+    <script type="text/javascript">
+        function getInvoives() {
+            var a;
+            Visualforce.remoting.Manager.invokeAction(
+                // Invoke the controller Action getConnection
+                '{!$RemoteAction.InvoiceJs.getInvoice}',
+
+                function (result, event) {
+                    if(event.status){
+                        document.getElementById('remoteInvoiceId').innerHTML = 'Invoices 
+                        for(a=0;a<result.length;a++){
+                            document.getElementById('remoteInvoiceId').innerHTML += res
+                        }
+                    }
+                },
+                {
+                    escape:true
+                }
+            );
+        }
+    </script>
+
+    <button onclick="getRmoteInvoices()">Get Contact</button>
+    <div id="responseErrors"></div>
+    <apex:pageBlock id="block">
+        <apex:pageBlockSection id="blockSection" columns="2">
+            <span id="remoteInvoiceId"></span>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>
